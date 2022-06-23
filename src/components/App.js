@@ -1,94 +1,18 @@
-import React, { useState, useReducer } from "react";
+import React, { useReducer } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import Event from "./Event";
+import EventForm from "./EventForm";
+import Events from "./Events";
+
 import reducer from "../reducers";
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, []);
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
-  const addEvent = (e) => {
-    e.preventDefault();
-    dispatch({
-      //reducerのactionの中身
-      type: "CREATE_EVENT",
-      title,
-      body,
-    });
-    setTitle("");
-    setBody("");
-  };
-  const deleteAllEvents = (e) => {
-    e.preventDefault();
-    const result = window.confirm(
-      "全てのイベントを本当に削除してよろしいですか？"
-    );
-    if (result) dispatch({ type: "DELETE_ALL_EVENTS" });
-  };
-
-  const unCeatable = (title === "") | (body === "");
 
   return (
     <div className="container-fluid">
-      <h4>イベント作成フォーム</h4>
-      <form>
-        <div className="form-group">
-          <label htmlFor="formEventTitle">タイトル</label>
-          <input
-            className="form-control"
-            id="formEventTitle"
-            value={title}
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="formEventBody">ボディ</label>
-          <textarea
-            className="form-control"
-            id="formEventBody"
-            value={body}
-            onChange={(e) => {
-              setBody(e.target.value);
-            }}
-          />
-        </div>
-
-        <button
-          className="btn btn-primary mr-2"
-          onClick={addEvent}
-          disabled={unCeatable}
-        >
-          イベントを作成する
-        </button>
-        <button
-          className="btn btn-danger"
-          onClick={deleteAllEvents}
-          disabled={state.length === 0}
-        >
-          全てのイベントを削除する
-        </button>
-      </form>
-
-      <h4>イベント一覧</h4>
-      <table className="table table-hover">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>タイトル</th>
-            <th>ボディ</th>
-          </tr>
-        </thead>
-        <tbody>
-          {/* addEventで登録したイベントのstate=[{id: 1, title'タイトル1',body:'ボディー1'}] */}
-          {state.map((event, index) => (
-            <Event key={index} event={event} dispatch={dispatch} />
-          ))}
-        </tbody>
-      </table>
+      <EventForm state={state} dispatch={dispatch} />
+      <Events state={state} dispatch={dispatch} />
     </div>
   );
 };
