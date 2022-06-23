@@ -3,7 +3,10 @@ const Event = ({ dispatch, event }) => {
   // Eventコンポーネントごとのクリックイベントにidが扱えるようにするために抽出
   const id = event.id;
   const handleClickDelete = () => {
-    dispatch({ type: "DELETE_EVENT", id });
+    const result = window.confirm(
+      `イベント(id=${id}})を削除してよろしいですか？`
+    );
+    if (result) dispatch({ type: "DELETE_EVENT", id });
   };
 
   return (

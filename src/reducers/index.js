@@ -22,7 +22,7 @@ const events = (state = [], action) => {
       // stateの配列に新規オブジェクトを追加
       return [...state, { id, ...event }];
     case "DELETE_EVENT":
-      // state内の配列をfilterして抽出して配列構築
+      // state内の配列のうち該当要素を除外(filter)して配列構築
       return state.filter((obj) => obj.id !== action.id);
     case "DELETE_ALL_EVENTS":
       return [];
