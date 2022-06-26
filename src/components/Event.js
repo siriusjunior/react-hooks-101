@@ -1,4 +1,5 @@
 import React from "react";
+import { DELETE_EVENT } from "../actions";
 const Event = ({ dispatch, event }) => {
   // Eventコンポーネントごとのクリックイベントにidが扱えるようにするために抽出
   const id = event.id;
@@ -6,7 +7,7 @@ const Event = ({ dispatch, event }) => {
     const result = window.confirm(
       `イベント(id=${id}})を削除してよろしいですか？`
     );
-    if (result) dispatch({ type: "DELETE_EVENT", id });
+    if (result) dispatch({ type: DELETE_EVENT, id });
   };
 
   return (

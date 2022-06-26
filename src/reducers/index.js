@@ -1,3 +1,4 @@
+import { CREATE_EVENT, DELETE_ALL_EVENTS, DELETE_EVENT } from "../actions";
 //action={
 //   type: 'CREATE_EVENT',
 //   title: 'W杯開催のお知らせ',
@@ -14,17 +15,17 @@
 //
 const events = (state = [], action) => {
   switch (action.type) {
-    case "CREATE_EVENT":
+    case CREATE_EVENT:
       const event = { title: action.title, body: action.body };
       const length = state.length;
       // 後者は配列最後のオブジェクトのidを抜いて加算
       const id = length === 0 ? 1 : state[length - 1].id + 1;
       // stateの配列に新規オブジェクトを追加
       return [...state, { id, ...event }];
-    case "DELETE_EVENT":
+    case DELETE_EVENT:
       // state内の配列のうち該当要素を除外(filter)して配列構築
       return state.filter((obj) => obj.id !== action.id);
-    case "DELETE_ALL_EVENTS":
+    case DELETE_ALL_EVENTS:
       return [];
     default:
       return state;
