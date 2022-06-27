@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import EventForm from "./EventForm";
@@ -7,12 +7,25 @@ import OperationLogs from "./OperationLogs";
 import AppContext from "../contexts/AppContext";
 import reducer from "../reducers";
 
+const APP_KEY = "appWithRedux";
+
 const App = () => {
-  const initialState = {
-    events: [],
-    operationLogs: [],
-  };
+  // appWithReduxのキー名に該当しなければnullを返す
+  // appWithReduxのキー名の値はJSON構造のstring
+  const appState = localStorage.getItem(APP_KEY);
+  const initialState = appState
+    ? JSON.parse(appState)
+    : {
+        events: [],
+        operationLogs: [],
+      };
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  // stateが変更されたら第1引数のコールバック関数が実行される
+  // APP_KEY(キー)に対するstateの文字列(JSON形式)を設置
+  useEffect(() => {
+    localStorage.setItem(APP_KEY, JSON.stringify(state));
+  }, [state]);
 
   return (
     <AppContext.Provider value={{ state, dispatch }}>
