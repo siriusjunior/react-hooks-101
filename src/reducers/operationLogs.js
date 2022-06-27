@@ -6,6 +6,7 @@ export const operationLogs = (state = [], action) => {
         description: action.description,
         operatedAt: action.operatedAt,
       };
+      // 配列内のstateにoperationLogとして追加
       return [operationLog, ...state];
     case DELETE_ALL_OPERATION_LOGS:
       return [];
