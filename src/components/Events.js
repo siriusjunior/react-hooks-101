@@ -16,7 +16,7 @@ const Events = () => {
         </thead>
         <tbody>
           {/* addEventで登録したイベントのstate=[{id: 1, title'タイトル1',body:'ボディー1'}] */}
-          {state.map((event, index) => (
+          {state.events.map((event, index) => (
             <Event key={index} event={event} />
           ))}
         </tbody>
