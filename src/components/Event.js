@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { DELETE_EVENT } from "../actions";
-const Event = ({ dispatch, event }) => {
+import AppContext from "../contexts/AppContext";
+const Event = ({ event }) => {
+  const { dispatch } = useContext(AppContext);
   // Eventコンポーネントごとのクリックイベントにidが扱えるようにするために抽出
   const id = event.id;
   const handleClickDelete = () => {
